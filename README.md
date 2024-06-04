@@ -8,7 +8,7 @@ but in this README you can also see how you can set this up for yourself.
 
 
 ## How to do this yourself 
-> [!INFO]
+> [!NOTE]
 > This will be for UNIX, Linux specific. 
 > This might be possible on other platforms, but I don't know how
 
