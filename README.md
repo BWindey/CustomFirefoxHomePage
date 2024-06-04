@@ -5,7 +5,7 @@ It serves a local html-file, so no need to set up a localhost server.
 This repository contains my own set-up, 
 but in this README you can also see how you can set this up for yourself.
 
-\ \
+
 
 ## How to do this yourself 
 > [!Info]
@@ -35,7 +35,7 @@ Now there is one last thing, open Firefox and go to the settings.
 Search for `Homepage and new windows`, and set it to `Custom URLs...`, 
 and set the value to `file://<HTML_FILE_PATH>`, again replacing that with the real path.
 
-\ \
+
 
 ## Preview my own home-page
 ![Image of my custom home-page](./images/preview.png)
