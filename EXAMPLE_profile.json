@@ -1,0 +1,12 @@
+{
+	"categories": {
+		"cat1": {
+			"example": "http://example.org",
+			"google": "https://google.com",
+			"duckduck": "https://duckduckgo.com"
+		},
+		"cat2": {
+			"localhost": "localhost:3000",
+		}
+	}
+}
