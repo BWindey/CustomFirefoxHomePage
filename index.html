@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Current Time</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="center">
-        <h1 id="time"></h1>
-    </div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+		<title>Home</title>
+	</head>
 
-    <script>
-        function updateTime() {
-            var now = new Date();
-            var hours = now.getHours().toString().padStart(2, '0');
-            var minutes = now.getMinutes().toString().padStart(2, '0');
-            var seconds = now.getSeconds().toString().padStart(2, '0');
-            var timeString = hours + ":" + minutes + ":" + seconds;
-            document.getElementById("time").textContent = timeString;
-        }
+	<body class="flex">
+		<!-- Section with time and date -->
+		<section id="section_top_info" class="flex">
+			<div id="time_welcome" class="text-center">
+				<h3 id="current_time">--:--</h3>
+			</div>
 
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
-</body>
+			<div id="date_weather" class="text-center">
+				<h3 id="current_date">-- --</h3>
+			</div>
+		</section>
+
+		<!-- Section with search-bar -->
+		<section id="section_middle_search" class="flex">
+			<form action="https://duckduckgo.com/" method="get" class="terminal-form">
+				<label for="search">
+					<span class="col-01">Search: </span>
+				</label>
+				<input
+					type="text"
+					name="q"
+					id="search"
+					placeholder="the internet is waiting for you"
+					autocomplete="off"
+					autofocus>
+			</form>
+		</section>
+
+		<!-- Section with links organised per theme -->
+		<section id="section_bottom_links" class="flex"> </section>
+
+		<!-- Script that will set time, date and fill links -->
+		<script src="index.js"></script>
+	</body>
 </html>

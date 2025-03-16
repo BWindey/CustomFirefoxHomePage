@@ -1,17 +1,178 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000;
+/*===: root :===*/
+/* Gruvbox colors from https://github.com/YV31/gruvbox-css/ */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-primary:     #282828;
+		--bg-secondary:   #3C3836;
+		--text-primary:   #FBF1C7;
+		--text-secondary: #EBDBB2;
+		--highlight:      #B8BB26;
+	}
 }
 
-.center {
-    text-align: center;
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg-primary:     #FBF1C7;
+		--bg-secondary:   #EBDBB2;
+		--text-primary:   #282828;
+		--text-secondary: #3C3836;
+		--highlight:      #458588;
+	}
 }
 
-h1 {
-    font-size: 3em;
-    color: #ffffff;
+:root {
+	--red:    #FB4934;
+	--green:  #B8BB26;
+	--yellow: #FABD2F;
+	--blue:   #83A598;
+	--purple: #D3869B;
+	--aqua:   #8EC07C;
+	--gray:   #928374;
+	--orange: #FE8019;
+
+	--red-dim:    #CC2412;
+	--green-dim:  #98971A;
+	--yellow-dim: #D79921;
+	--blue-dim:   #458588;
+	--purple-dim: #B16286;
+	--aqua-dim:   #689D6A;
+	--gray-dim:   #A89984;
+	--orange-dim: #D65D0E;
+
+	--ff-mono: "Pixel Code";
+	--ff-weight-base: 400;
+}
+
+/*===: general :===*/
+* {
+	margin: 0;
+	padding: 0;
+	font-family: var(--ff-mono);
+	font-weight: var(--ff-weight-base);
+	box-sizing: border-box;
+}
+a {
+	color: var(--text-primary);
+	font-style: normal;
+	text-decoration: none;
+}
+a:hover {
+	color: var(--blue-dim);
+	text-decoration: underline;
+}
+
+/*===: helpers :===*/
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+
+.text-center {
+	text-align: center;
+}
+
+/*===: body :===*/
+body {
+	width: 100%;
+	height: 100vh;
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 2em;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1em;
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+}
+
+/*===: top section :===*/
+#section_top_info {
+	width: 100%;
+	margin: 1em 0em;
+	padding: 2.2em 0em;
+	justify-content: space-evenly;
+}
+#time_welcome h3, #date_weather h3 {
+	font-size: 3.2em;
+	font-weight: bold;
+}
+#time_welcome h5, #date_weather h5 {
+	margin-top: .5em;
+	font-size: 1.2em;
+}
+
+/*===: bottom section :===*/
+#section_bottom_links {
+	width: 100%;
+	min-width: 200px;
+	margin: 1em 0em;
+	gap: 1em;
+	justify-content: center;
+}
+
+.generic_link {
+	/*width: 100%;*/
+	flex-grow: 1;
+	/*min-width: 150px;*/
+	padding: 1.1em 1.1em;
+	background: var(--bg-secondary);
+	border-radius: 5px;
+}
+
+/*===: middle section :===*/
+::placeholder {
+	font-style: italic;
+}
+
+#section_middle_search {
+	width: 100%;
+	justify-content: center;
+	padding: 1em 2em;
+	background-color: var(--bg-secondary);
+	border-radius: 5px;
+}
+.terminal-form {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+}
+.terminal-form label {
+	width: auto;
+	margin-right: 1em;
+}
+.terminal-form input[type="text"] {
+	border: none;
+	flex-grow: 1;
+	background-color: var(--bg-secondary);
+	color: var(--text-primary);
+}
+.terminal-form input[type="text"]:focus {
+	outline: none;
+}
+
+/*===: prompt section :===*/
+.prompt_link {
+	margin-bottom: 0.5em;
+}
+.res_prompt {
+	margin-left: 1.5em;
+}
+.res_folder {
+	color: var(--green);
+}
+
+/*===: global colors section :===*/
+.col-01 {
+	color: var(--yellow);
+}
+.col-02 {
+	color: var(--blue);
+}
+.col-03 {
+	color: var(--aqua);
+}
+.col-04 {
+	color: var(--fg-dark-03);
 }
