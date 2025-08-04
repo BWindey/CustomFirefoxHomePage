@@ -45,11 +45,16 @@ async function fill_links_from_json() {
 
 		// show category name as responde (from ls -T)
 		let resPromptDiv = document.createElement('div');
+		let link_list = Object.entries(links);
+
 		resPromptDiv.className = 'res_prompt';
 		resPromptDiv.innerHTML = `
 			<p class="res_folder">${category}/</p>
-			${Object.entries(links).map(([name, url]) => `
-				<p>└── <a href="${url}" target="_blank">${name}</a></p>
+			${link_list.map(([name, url], index) => `
+				<p>
+					${index + 1 < link_list.length ? '├' : '└'}──
+					<a href="${url}" target="_blank">${name}</a>
+				</p>
 			`).join("")}
 		`;
 
