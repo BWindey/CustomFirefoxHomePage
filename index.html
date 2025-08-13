@@ -22,7 +22,8 @@
 
 		<!-- Section with search-bar -->
 		<section id="section_middle_search" class="flex">
-			<form action="https://duckduckgo.com/" method="get" class="terminal-form">
+			<!-- <form action="https://duckduckgo.com/" method="get" class="terminal-form"> -->
+			<form onsubmit="on_search_enter(event)" class="terminal-form">
 				<label for="search">
 					<span class="col-01">Search: </span>
 				</label>
@@ -42,4 +43,27 @@
 		<!-- Script that will set time, date and fill links -->
 		<script src="index.js"></script>
 	</body>
+
+	<script>
+	const search_bar = document.getElementById('search');
+
+	function on_search_enter(event) {
+		event.preventDefault(); // prevent form from submitting
+
+		const search_val = search_bar.value;
+
+		let possibilities = [];
+
+		// Search all links
+		for (let actual_link_element of document.getElementsByClassName('actual_link')) {
+			const link_link = actual_link_element.href;
+			const link_name = actual_link_element.firstChild.textContent;
+
+			if (link_name === search_val) {
+				console.log("Found match, should reroute");
+				window.location.href = link_link;
+			}
+		}
+	}
+	</script>
 </html>
