@@ -65,5 +65,59 @@
 			}
 		}
 	}
+
+	search_bar.addEventListener('keydown', function (e) {
+		if (e.code !== 'Tab' || e.ctrlKey || e.altKey || e.metaKey) return;
+		e.preventDefault();
+
+
+		let possibilities = [];
+
+		for (let actual_link_element of document.getElementsByClassName('actual_link')) {
+			const link_link = actual_link_element.href;
+			const link_name = actual_link_element.firstChild.textContent;
+
+			if (link_name.startsWith(search_bar.value)) {
+				possibilities.push(link_name);
+			}
+		}
+
+		if (possibilities.length == 1) {
+			search_bar.value = possibilities[0];
+			return;
+		} else {
+			// Find longest matching prefix
+			let i = search_bar.value.length;
+			let iterations = 0;
+			const MAX_ITERATIONS = 100;
+
+			while (true) {
+				if (i >= possibilities[0].length) break;
+
+				let char = possibilities[0][i];
+				let breaking = false;
+				for (let j = 1; j < possibilities.length; j++) {
+					if (i >= possibilities[j].length) {
+						breaking = true;
+						break;
+					} else if (char != possibilities[j][i]) {
+						breaking = true;
+						break;
+					}
+				}
+				if (breaking) break;
+				i++;
+
+				// Little safe-guard
+				iterations++;
+				if (iterations > MAX_ITERATIONS) {
+					console.error("Reached MAX_ITERATIONS while trying completions");
+					return;
+				}
+			}
+
+			search_bar.value = possibilities[0].substring(0, i);
+		}
+	});
 	</script>
 </html>
