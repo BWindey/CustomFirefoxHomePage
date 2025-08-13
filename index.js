@@ -53,7 +53,7 @@ async function fill_links_from_json() {
 			${link_list.map(([name, url], index) => `
 				<p>
 					${index + 1 < link_list.length ? '├' : '└'}──
-					<a href="${url}" target="_blank">${name}</a>
+					<a href="${url}" target="_blank" class="actual_link">${name}</a>
 				</p>
 			`).join("")}
 		`;
