@@ -47,6 +47,8 @@
 	<script>
 	const search_bar = document.getElementById('search');
 
+	// Intercept 'enter' to first check if we can go to a shortcut, or if we want
+	// to just search the query
 	function on_search_enter(event) {
 		event.preventDefault(); // prevent form from submitting
 
@@ -64,6 +66,9 @@
 				window.location.href = link_link;
 			}
 		}
+
+		// Not found anything?
+		window.location.href = `https://duckduckgo.com/?q=${search_val}`;
 	}
 
 	search_bar.addEventListener('keydown', function (e) {
