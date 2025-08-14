@@ -123,6 +123,7 @@ body {
 /*===: middle section :===*/
 ::placeholder {
 	font-style: italic;
+	color: var(--gray);
 }
 
 #section_middle_search {
@@ -130,8 +131,24 @@ body {
 	justify-content: center;
 	padding: 1em 2em;
 	background-color: var(--bg-secondary);
-	border-radius: 5px;
+	border-radius: 6px;
 }
+
+/* Make sure both input and completion-suggestion have the same font,
+ * due to input being in '<input>' that could be not the case. */
+.searchbar_wrapper input[type="text"], .searchbar_wrapper span {
+	font-family: var(--ff-mono);
+	font-weight: var(--ff-weight-base);
+	font-size: 1rem;
+	letter-spacing: 0;
+}
+
+/* Make sure there is no space between the input and completion-suggestion */
+#completion_suggestion {
+	font-style: italic;
+	color: var(--gray);
+}
+
 .terminal-form {
 	width: 100%;
 	display: flex;
