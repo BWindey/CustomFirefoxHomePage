@@ -61,6 +61,8 @@
 	// bind it to change
 	search_bar.addEventListener('input', adjust_inputfield_width);
 
+	search_bar.addEventListener('input', update_completion_suggestion);
+
 
 	// Intercept 'enter' to first check if we can go to a shortcut, or if we want
 	// to just search the query
@@ -86,11 +88,7 @@
 		window.location.href = `https://duckduckgo.com/?q=${search_val}`;
 	}
 
-	search_bar.addEventListener('keydown', function (e) {
-		if (e.code !== 'Tab' || e.ctrlKey || e.altKey || e.metaKey) return;
-		e.preventDefault();
-
-
+	function get_possible_completions() {
 		let possibilities = [];
 
 		for (let actual_link_element of document.getElementsByClassName('actual_link')) {
@@ -101,6 +99,35 @@
 				possibilities.push(link_name);
 			}
 		}
+
+		return possibilities;
+	}
+
+	function update_completion_suggestion(event) {
+		const possibilities = get_possible_completions();
+
+		if (possibilities.length == 1) {
+			const completion = possibilities[0];
+			const rest = completion.substring(search_bar.value.length);
+			completion_suggestion.innerHTML = rest;
+		} else {
+			completion_suggestion.innerHTML = '';
+		}
+	}
+
+	// Completions
+	search_bar.addEventListener('keydown', function (e) {
+		// TODO: these logs "prove" that we're using an old value, which is weird.
+		//  fix that for actual good completions
+		console.log(e);
+		console.log(search_bar.value);
+		let possibilities = get_possible_completions();
+
+		if (e.code !== 'Tab' || e.ctrlKey || e.altKey || e.metaKey) {
+			return;
+		}
+		e.preventDefault();
+
 
 		if (possibilities.length == 1) {
 			search_bar.value = possibilities[0];
