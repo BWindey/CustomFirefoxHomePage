@@ -164,6 +164,10 @@ body {
 	flex-grow: 1;
 	background-color: var(--bg-secondary);
 	color: var(--text-primary);
+	box-sizing: content-box;
+	padding: 0;
+	width: auto;
+	min-width: 1ch;
 }
 .terminal-form input[type="text"]:focus {
 	outline: none;

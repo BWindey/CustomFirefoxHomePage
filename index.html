@@ -48,6 +48,19 @@
 
 	<script>
 	const search_bar = document.getElementById('search');
+	const completion_suggestion = document.getElementById('completion_suggestion');
+
+	// auto-resize `<input>` to fit as close as possible around the text
+	function adjust_inputfield_width() {
+		const value = search_bar.value || search_bar.placeholder;
+		const new_width = value.length;
+		search_bar.style.width = `${new_width}ch`;
+	}
+	// already call it once
+	window.addEventListener('DOMContentLoaded', adjust_inputfield_width);
+	// bind it to change
+	search_bar.addEventListener('input', adjust_inputfield_width);
+
 
 	// Intercept 'enter' to first check if we can go to a shortcut, or if we want
 	// to just search the query
