@@ -132,6 +132,7 @@ function on_search_enter(event) {
 		if (link_name === search_val) {
 			console.log("Found match, should reroute");
 			window.location.href = link_link;
+			return;
 		}
 	}
 
