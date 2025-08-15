@@ -103,7 +103,7 @@
 		return possibilities;
 	}
 
-	function update_completion_suggestion(event) {
+	function update_completion_suggestion() {
 		const possibilities = get_possible_completions();
 
 		if (possibilities.length == 1) {
@@ -115,56 +115,53 @@
 		}
 	}
 
+	// Returns char_index where it did not match anymore
+	function find_longest_matching_prefix(list, char_index = 0, max_iterations = 100) {
+		let iterations = 0;
+
+		while (iterations < max_iterations) {
+			if (char_index >= list[0].length) return char_index;
+
+			const char = list[0][char_index];
+			for (let i = 1; i < list.length; i++) {
+				if (char_index >= list[i].length) return char_index;
+				if (list[i][char_index] != char)  return char_index
+			}
+
+			char_index++;
+			iterations++;
+		}
+		if (iterations == max_iterations) return -1;
+
+		return char_index;
+	}
+
 	// Completions
 	search_bar.addEventListener('keydown', function (e) {
-		// TODO: these logs "prove" that we're using an old value, which is weird.
-		//  fix that for actual good completions
-		console.log(e);
-		console.log(search_bar.value);
-		let possibilities = get_possible_completions();
-
 		if (e.code !== 'Tab' || e.ctrlKey || e.altKey || e.metaKey) {
 			return;
 		}
 		e.preventDefault();
 
+		let possibilities = get_possible_completions();
 
 		if (possibilities.length == 1) {
 			search_bar.value = possibilities[0];
-			return;
 		} else {
 			// Find longest matching prefix
 			let i = search_bar.value.length;
-			let iterations = 0;
-			const MAX_ITERATIONS = 100;
+			const char_index = find_longest_matching_prefix(possibilities, i);
 
-			while (true) {
-				if (i >= possibilities[0].length) break;
-
-				let char = possibilities[0][i];
-				let breaking = false;
-				for (let j = 1; j < possibilities.length; j++) {
-					if (i >= possibilities[j].length) {
-						breaking = true;
-						break;
-					} else if (char != possibilities[j][i]) {
-						breaking = true;
-						break;
-					}
-				}
-				if (breaking) break;
-				i++;
-
-				// Little safe-guard
-				iterations++;
-				if (iterations > MAX_ITERATIONS) {
+			if (char_index < 0) {
 					console.error("Reached MAX_ITERATIONS while trying completions");
 					return;
-				}
+			} else {
+				search_bar.value = possibilities[0].substring(0, char_index);
 			}
-
-			search_bar.value = possibilities[0].substring(0, i);
 		}
+
+		adjust_inputfield_width();
+		update_completion_suggestion();
 	});
 	</script>
 </html>
