@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	setInterval(fill_date, 60_000);
 });
 
-//===: get username :===
+
+/*
+ * Fetch the 'profile.json' and use it to fill in the page.
+ */
 async function fill_links_from_json() {
 	const links_sections = document.getElementById('section_bottom_links');
 
@@ -63,7 +66,9 @@ async function fill_links_from_json() {
 	});
 }
 
-//===: current date implementation :===
+/*
+ * Fill in the date at the top of the page.
+ */
 function fill_date() {
 	const current_date_element = document.getElementById('current_date');
 	const now = new Date();
@@ -73,15 +78,14 @@ function fill_date() {
 	current_date_element.textContent = `${month} ${day}`;
 }
 
-//===: current time implementation :===
+/*
+ * Fill in the time at the top of the page.
+ */
 function fill_time() {
 	const current_time_element = document.getElementById('current_time');
 	const now = new Date();
 	const hours = now.getHours().toString().padStart(2, '0');
 	const minutes = now.getMinutes().toString().padStart(2, '0');
 
-	// Don't update if it's still the same, might save some performance this way
-	if (!current_time_element.textContent.endsWith(minutes)) {
-		current_time_element.textContent = `${hours}:${minutes}`;
-	}
+	current_time_element.textContent = `${hours}:${minutes}`;
 };

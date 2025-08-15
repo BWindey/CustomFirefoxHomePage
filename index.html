@@ -22,7 +22,6 @@
 
 		<!-- Section with search-bar -->
 		<section id="section_middle_search" class="flex">
-			<!-- <form action="https://duckduckgo.com/" method="get" class="terminal-form"> -->
 			<form onsubmit="on_search_enter(event)" class="terminal-form">
 				<label for="search">
 					<span class="col-01">Search: </span>
@@ -39,129 +38,12 @@
 			</form>
 		</section>
 
-		<!-- Section with links organised per theme -->
+		<!-- Section with links organised per theme, filled in with JS -->
 		<section id="section_bottom_links" class="flex"> </section>
 
-		<!-- Script that will set time, date and fill links -->
-		<script src="index.js"></script>
+
+		<!-- The two scripts that will do the interactive stuff. -->
+		<script src="scripts/fill_page.js"></script>
+		<script src="scripts/completion.js"></script>
 	</body>
-
-	<script>
-	const search_bar = document.getElementById('search');
-	const completion_suggestion = document.getElementById('completion_suggestion');
-
-	// auto-resize `<input>` to fit as close as possible around the text
-	function adjust_inputfield_width() {
-		const value = search_bar.value || search_bar.placeholder;
-		const new_width = value.length;
-		search_bar.style.width = `${new_width}ch`;
-	}
-	// already call it once
-	window.addEventListener('DOMContentLoaded', adjust_inputfield_width);
-	// bind it to change
-	search_bar.addEventListener('input', adjust_inputfield_width);
-
-	search_bar.addEventListener('input', update_completion_suggestion);
-
-
-	// Intercept 'enter' to first check if we can go to a shortcut, or if we want
-	// to just search the query
-	function on_search_enter(event) {
-		event.preventDefault(); // prevent form from submitting
-
-		const search_val = search_bar.value;
-
-		let possibilities = [];
-
-		// Search all links
-		for (let actual_link_element of document.getElementsByClassName('actual_link')) {
-			const link_link = actual_link_element.href;
-			const link_name = actual_link_element.firstChild.textContent;
-
-			if (link_name === search_val) {
-				console.log("Found match, should reroute");
-				window.location.href = link_link;
-			}
-		}
-
-		// Not found anything?
-		window.location.href = `https://duckduckgo.com/?q=${search_val}`;
-	}
-
-	function get_possible_completions() {
-		let possibilities = [];
-
-		for (let actual_link_element of document.getElementsByClassName('actual_link')) {
-			const link_link = actual_link_element.href;
-			const link_name = actual_link_element.firstChild.textContent;
-
-			if (link_name.startsWith(search_bar.value)) {
-				possibilities.push(link_name);
-			}
-		}
-
-		return possibilities;
-	}
-
-	function update_completion_suggestion() {
-		const possibilities = get_possible_completions();
-
-		if (possibilities.length == 1) {
-			const completion = possibilities[0];
-			const rest = completion.substring(search_bar.value.length);
-			completion_suggestion.innerHTML = rest;
-		} else {
-			completion_suggestion.innerHTML = '';
-		}
-	}
-
-	// Returns char_index where it did not match anymore
-	function find_longest_matching_prefix(list, char_index = 0, max_iterations = 100) {
-		let iterations = 0;
-
-		while (iterations < max_iterations) {
-			if (char_index >= list[0].length) return char_index;
-
-			const char = list[0][char_index];
-			for (let i = 1; i < list.length; i++) {
-				if (char_index >= list[i].length) return char_index;
-				if (list[i][char_index] != char)  return char_index
-			}
-
-			char_index++;
-			iterations++;
-		}
-		if (iterations == max_iterations) return -1;
-
-		return char_index;
-	}
-
-	// Completions
-	search_bar.addEventListener('keydown', function (e) {
-		if (e.code !== 'Tab' || e.ctrlKey || e.altKey || e.metaKey) {
-			return;
-		}
-		e.preventDefault();
-
-		let possibilities = get_possible_completions();
-
-		if (possibilities.length == 1) {
-			search_bar.value = possibilities[0];
-		} else {
-			// Find longest matching prefix
-			let i = search_bar.value.length;
-			const char_index = find_longest_matching_prefix(possibilities, i);
-
-			if (char_index < 0) {
-					console.error("Reached MAX_ITERATIONS while trying completions");
-					return;
-			} else {
-				search_bar.value = possibilities[0].substring(0, char_index);
-			}
-		}
-
-		adjust_inputfield_width();
-		update_completion_suggestion();
-	});
-	</script>
 </html>
