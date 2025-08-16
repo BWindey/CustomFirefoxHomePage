@@ -36,12 +36,12 @@ async function fill_links_from_json() {
 
 		// make each prompt
 		let promptLinkDiv = document.createElement('div');
-		promptLinkDiv.className = 'prompt_link';
+		promptLinkDiv.className = 'tree_prompt';
 		promptLinkDiv.innerHTML = `
 			<p>
-				<span class="col-01">➜</span>
-				<span class="col-02">tree</span>
-				<span class="col-04">${category}/</span>
+				<span class="colour_yellow">➜</span>
+				<span class="colour_blue">tree</span>
+				<span>${category}/</span>
 			</p>
 		`;
 		actual_category_container.appendChild(promptLinkDiv);
@@ -50,9 +50,9 @@ async function fill_links_from_json() {
 		let resPromptDiv = document.createElement('div');
 		let link_list = Object.entries(links);
 
-		resPromptDiv.className = 'res_prompt';
+		resPromptDiv.className = 'tree_result';
 		resPromptDiv.innerHTML = `
-			<p class="res_folder">${category}/</p>
+			<p class="colour_green">${category}/</p>
 			${link_list.map(([name, url], index) => `
 				<p>
 					${index + 1 < link_list.length ? '├' : '└'}──

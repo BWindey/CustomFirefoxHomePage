@@ -40,6 +40,8 @@
 	--orange-dim: #D65D0E;
 
 	--ff-mono: "Pixel Code";
+
+	--corner-radius: 6px; /* will be used everywhere for consistency */
 }
 
 /* General styles applied everywhere */
@@ -99,64 +101,48 @@ body {
 }
 
 
-/*===: middle section :===*/
+#section_middle_search {
+	padding: 1em 2em; /* Padding inside box around searchbar */
+	background-color: var(--bg-secondary);
+	border-radius: var(--corner-radius);
+}
+
+/* Custom style for the input placeholder */
 ::placeholder {
 	font-style: italic;
 	color: var(--gray);
 }
 
-#section_middle_search {
-	width: 100%;
-	justify-content: center;
-	padding: 1em 2em;
-	background-color: var(--bg-secondary);
-	border-radius: 6px;
-}
-
-/* Make sure both input and completion-suggestion have the same font,
+/* Make sure both input and completion-suggestion have the same fontsize,
  * due to input being in '<input>' that could be not the case. */
 .searchbar_wrapper input[type="text"], .searchbar_wrapper span {
-	font-family: var(--ff-mono);
-	font-weight: var(--ff-weight-base);
 	font-size: 1rem;
-	letter-spacing: 0;
 }
 
-/* Make sure there is no space between the input and completion-suggestion */
+/* Completion suggestion same as placeholder */
 #completion_suggestion {
 	font-style: italic;
 	color: var(--gray);
 }
 
+/* Some rules for the input-field specifically. Size is set using JS. */
 .terminal-form {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: start;
+	display: flex; /* Make sure that search-prompt follows 'Search: ' directly */
 }
 .terminal-form label {
-	width: auto;
-	margin-right: 1em;
+	margin-right: 1em; /* Leave some space behind 'Search: ' */
 }
 .terminal-form input[type="text"] {
 	border: none;
-	flex-grow: 1;
-	background-color: var(--bg-secondary);
+	outline: none; /* No border when focused */
 	color: var(--text-primary);
-	box-sizing: content-box;
-	padding: 0;
-	width: auto;
-	min-width: 1ch;
-}
-.terminal-form input[type="text"]:focus {
-	outline: none;
+	background-color: var(--bg-secondary);
 }
 
 
 #section_bottom_links {
 	margin: 1em 0em;
 	gap: 1em;
-	justify-content: center;
 }
 
 /* Class used by html generated with javascript for the boxes with the links */
@@ -164,30 +150,24 @@ body {
 	flex-grow: 1;
 	padding: 1.1em;
 	background: var(--bg-secondary);
-	border-radius: 6px;
+	border-radius: var(--corner-radius);
 }
 
-/*===: prompt section :===*/
-.prompt_link {
+/* Some styling for the `tree <dir>` prompt */
+.tree_prompt {
 	margin-bottom: 0.5em;
 }
-.res_prompt {
+.tree_result {
 	margin-left: 1.5em;
 }
-.res_folder {
-	color: var(--green);
-}
 
-/*===: global colors section :===*/
-.col-01 {
+/* Some colour-classes */
+.colour_yellow {
 	color: var(--yellow);
 }
-.col-02 {
+.colour_blue {
 	color: var(--blue);
 }
-.col-03 {
-	color: var(--aqua);
-}
-.col-04 {
-	color: var(--fg-dark-03);
+.colour_green {
+	color: var(--green);
 }
