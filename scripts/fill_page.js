@@ -7,6 +7,21 @@ document.addEventListener("DOMContentLoaded", function () {
 	setInterval(fill_time, 1_000);
 	// Update date every minute
 	setInterval(fill_date, 60_000);
+
+	// When user clicks on searchbar it should go to input, but guard against
+	// double clicks or selections.
+	document.getElementById('section_middle_search')
+		.addEventListener(
+			'click',
+			function (event) {
+				// Do nothing with double or triple clicks
+				if (event.detail > 1) return;
+				const selection = window.getSelection();
+				console.log(selection);
+				if (selection.type === "Range") return;
+				document.getElementById('search').focus();
+			}
+		);
 });
 
 
